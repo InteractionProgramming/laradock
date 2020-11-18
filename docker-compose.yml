@@ -172,6 +172,7 @@ services:
         - "${WORKSPACE_VUE_CLI_SERVE_HOST_PORT}:8080"
         - "${WORKSPACE_VUE_CLI_UI_HOST_PORT}:8000"
         - "${WORKSPACE_ANGULAR_CLI_SERVE_HOST_PORT}:4200"
+        - "3100:3100" # Node server
       tty: true
       environment:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -844,11 +845,11 @@ services:
 ### MeiliSearch ##########################################
     meilisearch:
       image: getmeili/meilisearch:latest
-      volumes: 
+      volumes:
         - ${DATA_PATH_HOST}/meilisearch:/var/lib/meilisearch
-      ports: 
+      ports:
         - "${MEILISEARCH_HOST_PORT}:7700"
-      networks: 
+      networks:
         - frontend
         - backend
 
@@ -1367,7 +1368,7 @@ services:
     docker-in-docker:
       image: docker:19.03-dind
       environment:
-        DOCKER_TLS_SAN: DNS:docker-in-docker      
+        DOCKER_TLS_SAN: DNS:docker-in-docker
       privileged: true
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
